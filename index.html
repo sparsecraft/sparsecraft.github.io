@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>SparseCraft</title>
+
+    <meta name="description"
+        content="SparseCraft: Few-Shot Neural Reconstruction through Stereopsis Guided Geometric Linearization">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--FACEBOOK-->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sparsecraft.github.io" />
+    <meta property='og:video' content="https://www.youtube.com/watch?v=7i9w2YKbRTc" />
+    <meta property="og:title" content="SparseCraft" />
+    <meta property="og:description"
+        content="SparseCraft: Few-Shot Neural Reconstruction through Stereopsis Guided Geometric Linearization" />
+
+    <!--TWITTER-->
+    <meta name="twitter:card" content="player" />
+    <meta name="twitter:title" content="SparseCraft" />
+    <meta name="twitter:description"
+        content="Project page for SparseCraft: Few-Shot Neural Reconstruction through Stereopsis Guided Geometric Linearization">
+    <meta name="twitter:player" content="https://www.youtube.com/watch?v=7i9w2YKbRTc" />
+    <meta name="twitter:player:width" content="640">
+    <meta name="twitter:player:height" content="360">
+
+    <link rel="icon" href="/potter.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="assets/css/bog/app.css">
+
+    <link rel="stylesheet" href="assets/css/bog/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+
+    <link rel="stylesheet" href="assets/css/bog/dics.min.css">
+    <script src="assets/js/bog/dics.min.js"></script>
+    <script src="assets/js/bog/video_comparison.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', domReady);
+        function domReady() {
+            for (const e of document.querySelectorAll(".b-dics")) {
+                new Dics({
+                    container: e,
+                    textPosition: "top"
+                });
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>SparseCraft</b>: Few-Shot Neural Reconstruction <br> through Stereopsis Guided Geometric Linearization </br>
+                <small>
+                    <strong>ECCV 2024</strong>
+                </small>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://orcid.org/0000-0002-4831-3343">Mae Younes</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        <a href="https://scholar.google.com/citations?hl=fr&user=IdcK7TcAAAAJ">Amine Ouasfi</a><sup>1,2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        <a href="https://scholar.google.com/citations?hl=fr&user=ayfaw7AAAAAJ">Adnane Boukhayma</a><sup>1,2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li><sup>1</sup>University of Rennes, France</span>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li><sup>2</sup>INRIA, CNRS, IRISA, France</span>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                </ul>
+            </h5>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <ul class="nav nav-pills nav-justified">
+                    <li>
+                        <a href="assets/paper/paper.pdf">
+                            <image src="assets/paper/paper.png"  height="60px">
+                                <h4><strong>Paper</strong></h4>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="assets/supp/supp.pdf">
+                            <image src="assets/supp/supp.png"  height="60px">
+                                <h4><strong>Supplementary</strong></h4>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=7i9w2YKbRTc">
+                            <image src="assets/img/bog/youtube_icon.png" style="border: none;" height="60px">
+                                <h4><strong>Video</strong></h4>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/maeyounes/SparseCraft">
+                        <image src="assets/img/bog/github_pad.png" height="60px">
+                            <h4><strong>Code</strong></h4>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://sparsecraft.github.io">
+                        <image src="assets/img/bog/google-drive.png" height="60px">
+                            <h4><strong>Data (Coming soon)</strong></h4>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div style="overflow: hidden;">
+                    <video width="100%" playsinline autoplay loop muted style="margin-top: 0%;">
+                        <source src="video/teaser.mp4" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <p class="text-center">
+                    SparseCraft learns a linearized implicit neural shape function using multi-view stereo cues, enabling robust training and efficient reconstruction from sparse views.
+                    <br>
+                </p>
+			</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+                    We present a novel approach for recovering 3D shape and view dependent appearance from a few colored images, enabling efficient 3D reconstruction and novel view synthesis. Our method learns an implicit neural representation in the form of a Signed Distance Function (SDF) and a radiance field. The model is trained progressively through ray marching enabled volumetric rendering, and regularized with learning-free multi-view stereo (MVS) cues. Key to our contribution is a novel implicit neural shape function learning strategy that encourages our SDF field to be as linear as possible near the level-set, hence robustifying the training against noise emanating from the supervision and regularization signals. Without using any pretrained priors, our method, called SparseCraft, achieves state-of-the-art performances both in novel-view synthesis and reconstruction from sparse views in standard benchmarks, while requiring less than 10 minutes for training.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Video
+                </h3>
+                <div class="text-center">
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="https://www.youtube.com/embed/7i9w2YKbRTc?si=ttwwuAZot9JqITSX" allowfullscreen
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="row comp-margin">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Surface Reconstruction
+                </h3>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <h4>
+                    SparseCraft generates more detailed and complete surfaces compared to previous method, from sparse input views with as few as 3 input images without any pretrained priors.
+                </h4>
+                <div class="aspect-ratio-container">
+                    <video class="responsive-video" controls autoplay loop muted>
+                        <source src="./video/rec_comparison_3v.mp4" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <div class="row comp-margin">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Novel View Synthesis
+                </h3>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <h4>
+                    SparseCraft also allows for high-quality novel view synthesis, generating realistic images from novel viewpoints using few input images, surpassing previous NeRF-based methods in the sparse setting.
+                </h4>
+                <div class="aspect-ratio-container">
+                    <video class="responsive-video" controls autoplay loop muted>
+                        <source src="video/nv_comparison.mp4" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <p>
+                    If you want to cite our work, please use:
+                </p>
+<!--<pre style="font-size: 12px;">
+@inproceedings{YounesSparseCraft2024,
+    title={SparseCraft: Few-Shot Neural Reconstruction through Stereopsis Guided Geometric Linearization},
+    author={Mae Younes},
+    publisher = {},
+    booktitle = {},
+    year      = {2024},
+    doi       = {}
+}</pre>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                    The website template was borrowed from <a href="http://mgharbi.com/">Michaël
+                        Gharbi</a> and <a href="https://jonbarron.info/mipnerf360/">MipNeRF360</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
