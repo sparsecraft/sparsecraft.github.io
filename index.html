@@ -177,6 +177,94 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+            <h3>
+                How does SparseCraft work?
+            </h3>
+            <h4>
+                Taylor Expansion Based Geometric Regularization
+            </h4>
+            <p>
+                We focus on the level set of the Signed Distance Function <i>f</i><sub>θ</sub>, where the most crucial knowledge for rendering concentrates. We hypothesize that encouraging the SDF to be as linear as possible there can robustify it against the noise introduced in the training procedure as intuitively, overly complex models are more likely to overfit on noisy samples.
+            </p>
+            <p>
+                We derive new losses that can achieve this linearization efficiently, while integrating MVS point and normal label supervision seamlessly. We use classical MVS methods such as COLMAP to obtain geometrical cues although incomplete and noisy.
+            </p>
+            <p>
+                We denote by <i>P</i>  the MVS point cloud obtained from input images {<i>I</i><sub>i</sub>}. We note that each sample <b>p</b> ∈ <i>P</i> comes with a normal <b>n</b><sub>MVS</sub>(<b>p</b>) and color <b>c</b><sub>MVS</sub>(<b>p</b>) estimation. We generate a pool of query points near the surface by sampling around the MVS points following a normal distribution, i.e. {<b>q</b> ∼ N(<b>p</b>, σ<sub>ε</sub> <b>I</b><sub>3</sub>)}, where the standard deviation σ<sub>ε</sub> decreases proportionately with a progressive learning step ε during training, forming the following set of training pairs <i>Q</i> := {(<b>q</b>, <b>p</b>), <b>p</b> = min<sub><b>v</b>∈<i>P</i></sub> ||<b>v</b> - <b>q</b>||<sub>2</sub>}.
+            </p>
+            <p>
+                Given a pair (<b>q</b>, <b>p</b>) in <i>Q</i>, we derive from the first-order Taylor polynomial approximation of the SDF <i>f</i><sub>θ</sub> around <b>q</b> and <b>p</b>, two losses that encourage the SDF to be as linear as possible near the level set. 
+            </p>
+            <p>
+                The first loss, denoted L</i><sub>tay</sub>(<b>q</b>), is defined as:
+            </p>
+            <p>
+            <div class="equation text-center">
+                <i>L</i><sub>tay</sub>(<b>q</b>) = ||<i>f</i><sub>θ</sub>(<b>q</b>) + ∇<i>f</i><sub>θ</sub>(<b>q</b>)<sup>⊤</sup>(<b>p</b> - <b>q</b>)||<sub>2</sub>
+            </div>
+            </p>
+            <p>
+                The second loss, denoted L</i><sub>tay</sub>(<b>p</b>), is defined as:
+            </p>
+            <p>
+            <div class="equation text-center">
+                <i>L</i><sub>tay</sub>(<b>p</b>) = ||<i>f</i><sub>θ</sub>(<b>q</b>) - ||∇<i>f</i><sub>θ</sub>(<b>p</b>)||<sub>2</sub> · <b>n</b><sub>MVS</sub>(<b>p</b>)<sup>⊤</sup>(<b>q</b> - <b>p</b>)||<sub>2</sub>
+            </div>
+            </p>
+            <p>
+                Where ∇<i>f</i><sub>θ</sub>(<b>p</b>) is the gradient of the SDF at <b>p</b> and <b>n</b><sub>MVS</sub>(<b>p</b>) is the normal estimation at <b>p</b> from the MVS point cloud. 
+            <p>
+                The two losses are summed up to form the Taylor expansion based geometric regularization loss and used in addition to the photometric loss and the eikonal loss.
+            </p>
+            <h4>
+                Color Regularization
+            </h4>
+            <p>
+                The color labels provided by MVS are averaged from the input images, so we propose to use them as a supervision to the diffuse component of the radiance function <i>g</i><sub>φ</sub>. 
+            </p>
+            <p>
+                our color network consists of two small MLPs <i>g</i><sub>φ</sub><sup>diff</sup> and <i>g</i><sub>φ</sub><sup>spec</sup> modelling view independent and view dependent radiance respectively:
+            </p>
+            <p>
+            <div class="equation text-center">
+                <i>g</i><sub>φ</sub>(<b>x</b>, <b>d</b>) := <i>g</i><sub>φ</sub><sup>spec</sup>(<b>x</b>, <b>F</b><sub>θ</sub>(<b>x</b>), ∇<i>f</i><sub>θ</sub>(<b>x</b>) / ||∇<i>f</i><sub>θ</sub>(<b>x</b>)||<sub>2</sub>, <b>d</b>) + <i>g</i><sub>φ</sub><sup>diff</sup>(<b>x</b>, <b>F</b><sub>θ</sub>(<b>x</b>)).
+            </div>
+            </p>
+            <p>
+                where <b>F</b><sub>θ</sub> is a feature extracted from the geometry network <i>f</i><sub>θ</sub>.
+            </p>
+            <p>
+                Our color regularization applied at MVS points then can be written as:
+            </p>
+            <p>
+            <div class="equation text-center">
+                <i>L</i><sub>col</sub>(<b>p</b>) = ||<i>g</i><sub>φ</sub><sup>diff</sup>(<b>p</b>) - <b>c</b><sub>MVS</sub>(<b>p</b>)||<sub>1</sub>.
+            </div>
+            </p>
+            <h4>
+                Fast Progressive Learning
+            </h4>
+            <p>
+                Our SDF <i>f</i><sub>θ</sub> consists of an efficiently CUDA implemented multi-resolution hash encoding followed by a small MLP, and the radiance network <i>g</i><sub>φ</sub> consists of two small MLPs. We use an explicit occupancy grid that guides the sampling along rays. This combination allows for fast training.
+            </p>
+            <p>
+                While progressive learning through positional encoding or learnable features was introduced previously for learning NeRFs from dense and sparse images, we propose here to explore this strategy for SDF based radiance learning in the sparse setting. Differently from previous works, we use the progressive hash encoding to regularize the training in the few shot setting throughout the whole training, rather than its use as a warm-up strategy.
+            </p>
+
+            <div class="col-md-8 col-md-offset-2">
+                <img src="./assets/img/pipeline.png" alt="SparseCraft Pipeline" class="img-responsive" alt="overview" width="120%" style="width: 850px;margin:auto;">
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <p class="text-center">
+                    In this toy example, we illustrate the training procedure given 4 samples {<b>r</b>(<i>t</i>)} on a ray <b>r</b> (where the last hash resolution is not active yet). Dashed arrows symbolize losses operating mid-training. SparseCraft leverages differentiable volumetric rendering to learn a SDF based implicit representation given a few images, using MVS cues as regularization (losses in <span style="color:red">red</span>).
+                    <br>
+                </p>
+			</div>
+            </div>
+        </div>
         
 
         <div class="row comp-margin">
@@ -186,9 +274,9 @@
                 </h3>
             </div>
             <div class="col-md-8 col-md-offset-2">
-                <h4>
+                <p>
                     SparseCraft generates more detailed and complete surfaces compared to previous method, from sparse input views with as few as 3 input images without any pretrained priors.
-                </h4>
+                </p>
                 <div class="aspect-ratio-container">
                     <video class="responsive-video" controls autoplay loop muted>
                         <source src="./video/rec_comparison_3v.mp4" type="video/mp4" />
@@ -204,9 +292,9 @@
                 </h3>
             </div>
             <div class="col-md-8 col-md-offset-2">
-                <h4>
+                <p>
                     SparseCraft also allows for high-quality novel view synthesis, generating realistic images from novel viewpoints using few input images, surpassing previous NeRF-based methods in the sparse setting.
-                </h4>
+                </p>
                 <div class="aspect-ratio-container">
                     <video class="responsive-video" controls autoplay loop muted>
                         <source src="video/nv_comparison.mp4" type="video/mp4" />
