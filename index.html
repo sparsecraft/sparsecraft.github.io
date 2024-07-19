@@ -254,10 +254,10 @@
                 While progressive learning through positional encoding or learnable features was introduced previously for learning NeRFs from dense and sparse images, we propose here to explore this strategy for SDF based radiance learning in the sparse setting. Differently from previous works, we use the progressive hash encoding to regularize the training in the few shot setting throughout the whole training, rather than its use as a warm-up strategy.
             </p>
 
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-0 col-md-offset-0">
                 <img src="./assets/img/pipeline.png" alt="SparseCraft Pipeline" class="img-responsive" alt="overview" width="120%" style="width: 850px;margin:auto;">
             </div>
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-0 col-md-offset-0">
                 <p class="text-center">
                     In this toy example, we illustrate the training procedure given 4 samples {<b>r</b>(<i>t</i>)} on a ray <b>r</b> (where the last hash resolution is not active yet). Dashed arrows symbolize losses operating mid-training. SparseCraft leverages differentiable volumetric rendering to learn a SDF based implicit representation given a few images, using MVS cues as regularization (losses in <span style="color:red">red</span>).
                     <br>
